@@ -3,7 +3,7 @@ from math import factorial
 import matplotlib.pyplot as plt
 
 class ProbabilityCalculation:
-    def __init__(self, k, n):
+    def __init__(self, k :int, n:int):
         self.k = k
         self.n = n
 
@@ -24,7 +24,7 @@ class ProbabilityCalculation:
         self.probabilities = probabilities
         return probabilities
 
-    def find_possible_probabilities(self, confidence_interval, step=0.1):
+    def find_possible_probabilities(self, confidence_interval:float, step=0.1):
         list_of_probabilities = []
         n = self.n
         k = self.k
@@ -43,14 +43,16 @@ class ProbabilityCalculation:
         
         while cumulative_sum < confidence_interval * area_under_curve:
             probability = expected_probability + distance * direction
-            if 0 < probability < 1:
+            if 0 < probability and probability < 1:
                 cumulative_sum += self.binomial_probability(probability)
             direction *= -1
             if direction < 0:
                 distance += step
             iteration += 1
-            list_of_probabilities.append(probability)
-        
+            if probability < 1:
+                list_of_probabilities.append(probability)
+            else:
+                list_of_probabilities.append(1.0)
         self.probability = list_of_probabilities[-2:]
         self.relative_area = cumulative_sum / area_under_curve
         self.distance = distance
@@ -60,11 +62,12 @@ class ProbabilityCalculation:
         plt.show()
 
 def main():
-    obj = ProbabilityCalculation(5, 10)
+    obj = ProbabilityCalculation(0, 4)
     obj.calculate_distribution()
-    obj.find_possible_probabilities(0.3, step=0.01)
-    obj.display()
+    obj.find_possible_probabilities(0.5, step=0.01)
     print(obj.probability)
+
+    obj.display()
 
 if __name__ == "__main__":
     main()
