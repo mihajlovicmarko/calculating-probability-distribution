@@ -7,7 +7,7 @@ class ProbabilityCalculation:
         self.k = k
         self.n = n
 
-    def binomial_probability(self, p):
+    def binomial_probability(self, p : float) -> float:
         n = self.n
         k = self.k
         other_divisor = n - k
@@ -17,7 +17,7 @@ class ProbabilityCalculation:
         comb = np.prod(np.arange(larger_divisor + 1, n + 1), dtype=np.uint64) / factorial(smaller_divisor)
         return comb * np.power(p, other_divisor) * np.power((1 - p), k)
 
-    def calculate_distribution(self):
+    def calculate_distribution(self) -> list:
         probabilities = []
         for i in range(100):
             probabilities.append(self.binomial_probability(i / 100))
