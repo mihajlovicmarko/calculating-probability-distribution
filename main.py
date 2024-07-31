@@ -62,10 +62,10 @@ class ProbabilityCalculation:
         plt.show()
 
 def main():
-    obj = ProbabilityCalculation(0, 4)
+    obj = ProbabilityCalculation(0, 4)#first number is number of positive outcomes; second number is total number of outcomes
     obj.calculate_distribution()
-    obj.find_possible_probabilities(0.5, step=0.01)
-    print(obj.probability)
+    obj.find_possible_probabilities(0.5, step=0.01)#first confidence rate higher number means probability more likely lies between bounds but bounds are wider, second is just resoulution
+    print(obj.probability) #prints upper and lower bound for estimated probability given confidence rate
 
     obj.display()
 
